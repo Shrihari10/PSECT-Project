@@ -19,7 +19,30 @@
   <body>
     <div class="navbar">PSECT Project</div>
     <div class="center_div">
-      <form id="firstForm" class="center_div my-5">
+      <form id="upform"  class="center_div my-5">
+        <div class="filein-head"> Upload .txt file</div>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroupFileAddon01"
+              >Upload</span
+            >
+          </div>
+          <div class="custom-file">
+            <input
+              type="file"
+              class="custom-file-input"
+              id="inputfile"
+              aria-describedby="inputGroupFileAddon01"
+            />
+            <label class="custom-file-label" for="inputfile">Choose file</label>
+          </div>
+        </div>
+        <button class="btn btn-primary" type="button"  id="ent-man" >
+          Enter manually
+        </button>
+      </form>
+     
+      <form id="firstForm" class="center_div my-5" style="display: none">
         <div class="form-group">
           <label for="power">Total Power Demand (D)</label>
           <input
@@ -45,9 +68,22 @@
           />
         </div>
       </form>
-      <button type="submit" class="btn btn-primary btn_cus" id="next">
+      <button
+        type="submit"
+        style="display: none"
+        class="btn btn-primary btn_cus"
+        id="next"
+      >
         Next
       </button>
+      <button
+      type="submit"
+      style="display: none; margin-top: 10px;"
+      class="btn btn-primary btn_cus"
+      id="back-home"
+    >
+      Back
+    </button>
     </div>
 
     <div id="secondForm" class="center_div"></div>

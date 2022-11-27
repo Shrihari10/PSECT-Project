@@ -4,6 +4,9 @@ const firstForm = document.getElementById("firstForm");
 const secondForm = document.getElementById("secondForm");
 const calculate = document.getElementById("calculate");
 const back = document.getElementById("back");
+const upform = document.getElementById('upform');
+const entMan= document.getElementById('ent-man')
+const backHome= document.getElementById('back-home')
 
 var i = 1;
 
@@ -11,7 +14,7 @@ next.addEventListener("click", function () {
   firstForm.style.display = "none";
   next.style.display = "none";
   secondForm.style.display = "block";
-
+  backHome.style.display='none'
   var M = document.getElementById("genNumbers").value;
   var D = document.getElementById("power").value;
 
@@ -61,6 +64,7 @@ back.addEventListener("click", function () {
   secondForm.style.display = "none";
   calculate.style.display = "none";
   back.style.display = "none";
+  backHome.style.display='block'
 });
 
 calculate.addEventListener("click", function () {
@@ -141,3 +145,68 @@ function lambdaIteration() {
   //       const cost = c.reduce(add, 0);
   //       console.log(Math.round(cost));
 }
+const finalShit = [];
+const res= document.getElementById('output-filein')
+function csvToArray(str, delimiter = ",") {
+
+    const someData = [];
+
+    const headers = str.slice(0, str.indexOf("\n")).split(delimiter);
+
+    const a = headers[0];
+    const b = headers[1];
+
+    const rows = str.slice(str.indexOf("\n") + 1).split("\n");
+
+    const arr = rows.map(function (row) {
+
+        const values = row.split(delimiter);
+
+        someData.push(values);
+
+    });
+
+    return [a, b, someData];
+
+}
+
+let a, b;
+let data;
+document.getElementById('inputfile').addEventListener('change', function (e) {
+
+    let allFiles = e.target.files;
+
+    for (var i = 0; i < allFiles.length; i++) {
+
+        var reader = new FileReader();
+
+        reader.readAsText(allFiles[0]);
+
+        reader.onload = function (e) {
+
+            finalShit.push(e.target.result);
+            const [first, second, metaData] = csvToArray(e.target.result);
+
+            a = first;
+            b = second;
+            data = metaData;
+
+            console.log(data);
+        };
+    
+    };
+    res.textContent='hi';
+});
+
+
+document.getElementById('ent-man').addEventListener('click', function(e){
+  firstForm.style.display='block'
+  next.style.display='block'
+  upform.style.display='none'
+  entMan.style.display='none'
+  backHome.style.display='block'
+
+});
+document.getElementById('back-home').addEventListener('click', function(e){
+  window.location.reload()
+});

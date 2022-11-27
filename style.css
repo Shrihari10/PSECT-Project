@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap');
+
 .center_div {
   margin: 0 auto;
   width: 60%;
@@ -40,20 +42,8 @@ body {
   border: 2px solid var(--input-border);
   border-radius: 4px;
 }
-#power:focus {
-  border-color: inherit !important;
-  -webkit-box-shadow: none !important;
-  box-shadow: none !important;
-  border: none !important;
-  border-bottom: slategray 2px solid !important;
-}
-#genNumbers:focus {
-  border-color: inherit !important;
-  -webkit-box-shadow: none !important;
-  box-shadow: none !important;
-  border: none !important;
-  border-bottom: slategray 2px solid !important;
-}
+
+
 .input:not(textarea) {
   line-height: 1;
   height: 2.25rem;
@@ -95,14 +85,23 @@ form:hover {
   text-align: center;
   -webkit-box-shadow: none !important;
   box-shadow: none !important;
-  border-bottom: slategray 2px solid !important;
 }
 
+.form-control{
+  border-radius: 0px  !important;
+  border-bottom: #6c757d 2px solid !important;
+  transition: all 0.2s ease-in-out !important; 
+
+}
 .form-control:focus {
   border-color: inherit !important;
   -webkit-box-shadow: none !important;
   box-shadow: none !important;
   border: none !important;
+  border-radius: 0px;
+  margin-top: 5px;
+  border-bottom: #1565c0 2px solid !important;
+
 }
 .genHead {
   box-sizing: border-box;
@@ -160,11 +159,13 @@ form:hover {
 
 #next:hover,
 #back:hover, 
-#calculate:hover {
+#calculate:hover, 
+#ent-man:hover, 
+#back-home:hover {
   color: white;
   background-color: #293241;
 }
-#next, #back {
+#next, #back, #back-home {
   width: 20%;
   height: auto;
   appearance: none;
@@ -205,4 +206,42 @@ form:hover {
   transition: all 0.2s;
   margin-bottom: 20px;
 margin-top:10px ;
+}
+.filein-head{
+  padding: 5px;
+  color:black;
+  border-left: black 7px solid;
+  margin-left: 40%;
+font-family: 'Bree Serif', serif;
+
+}
+#output-filein{
+  display: flex;
+  flex-direction: row;
+   justify-content: space-around;
+  text-align: center;
+  padding: 10px 0px ;
+  margin: 0 30px ;
+  color: #293241;
+  box-shadow: #1565c0 6px 2px 16px 0px, #b92b27 -6px -2px 16px 0px;
+}
+#ent-man{
+  width: 50%;
+  height: auto;
+  appearance: none;
+  -webkit-appearance: none;
+  display: flex;
+  justify-self: center;
+  padding: 10px;
+  border: 0.1em solid #8b8a8b;
+ text-align: center;
+  border-radius: 0.12em;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+  background-color: inherit;
+  color: #293241;
+  text-align: center;
+  transition: all 0.2s;
 }
