@@ -205,7 +205,10 @@ form:hover {
   text-align: center;
   transition: all 0.2s;
   margin-bottom: 20px;
-margin-top:10px ;
+margin-top:30px ;
+}
+.form-control::placeholder{
+  font-size: 0.8em !important;
 }
 .filein-head{
   padding: 5px;
@@ -244,4 +247,17 @@ font-family: 'Bree Serif', serif;
   color: #293241;
   text-align: center;
   transition: all 0.2s;
+}
+@media (max-width: 1185px) {
+  /* … */
+.genForm{
+  flex-direction: column;
+  height: auto;
+}
+.genMain{
+  height: auto;
+}
+.genIn{
+  width: 50%;
+}
 }

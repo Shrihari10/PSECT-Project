@@ -79,41 +79,25 @@ calculate.addEventListener("click", function () {
 
   lambdan();
 });
-
-function lambdan() {
-  var paramA = document.getElementsByClassName("paramA");
-  var paramB = document.getElementsByClassName("paramB");
-  var paramC = document.getElementsByClassName("paramC");
-  var Pmin = document.getElementsByClassName("Pmin");
-  var Pmax = document.getElementsByClassName("Pmax");
-
-  let paramAArray = [];
-  for (var i = 0; i < paramA.length; i++) {
-    paramAArray.push(paramA[i].value);
-  }
-
-  let paramBArray = [];
-  for (var i = 0; i < paramB.length; i++) {
-    paramBArray.push(paramB[i].value);
-  }
-
-  let paramCArray = [];
-  for (var i = 0; i < paramC.length; i++) {
-    paramCArray.push(paramC[i].value);
-  }
-
-  //algorithm
+function lambdaan(paramAArray, paramBArray, paramCArray, Pmax,Pmin, noOfgens, totaldemand){
   var lambda = Math.max(...paramBArray);
+ // console.log(lambda);
   var delP = -1;
   var j = 0;
   var P = [];
-
+  console.log(paramAArray);
+  console.log(paramBArray);
+  console.log(paramCArray);
+  console.log(Pmax);
+  console.log(Pmin);
+  console.log(totaldemand)
+  console.log(noOfgens)
   while (delP != 0) {
     var pSum = 0;
     var denominator = 0;
-    for (var i = 0; i < noOfGens; i++) {
+    for (var i = 0; i < noOfgens; i++) {
       P[i] = (lambda - paramBArray[i]) / (2 * paramCArray[i]);
-
+     
       if (P[i] >= Pmax[i]) {
         P[i] = Pmax[i];
       } else if (P[i] <= Pmin[i]) {
@@ -126,7 +110,7 @@ function lambdan() {
       pSum = pSum + P[i];
     }
 
-    delP = totalDemand - pSum;
+    delP = totaldemand - pSum;
     var delLambda = delP / denominator;
     lambda = lambda + delLambda;
     j = j + 1;
@@ -140,7 +124,7 @@ function lambdan() {
 
   var c = [];
 
-  for (var i = 0; i < noOfGens; i++) {
+  for (var i = 0; i < noOfgens; i++) {
     c[i] =
       paramAArray[i] +
       paramBArray[i] * P[i] +
@@ -156,6 +140,92 @@ function lambdan() {
     initialValue
   );
   console.log(cost);
+}
+function lambdan() {
+  var paramA = document.getElementsByClassName("paramA");
+  var paramB = document.getElementsByClassName("paramB");
+  var paramC = document.getElementsByClassName("paramC");
+  var Pmin = document.getElementsByClassName("Pmin");
+  var Pmax = document.getElementsByClassName("Pmax");
+
+  let paramAArray = [];
+  for (var i = 0; i < paramA.length; i++) {
+    paramAArray.push(parseFloat(paramA[i].value));
+  }
+
+  let paramBArray = [];
+  for (var i = 0; i < paramB.length; i++) {
+    paramBArray.push(parseFloat(paramB[i].value));
+  }
+
+  let paramCArray = [];
+  for (var i = 0; i < paramC.length; i++) {
+    paramCArray.push(parseFloat(paramC[i].value));
+  }
+  let pmin=[];
+  for (var i = 0; i < Pmin.length; i++) {
+    pmin.push(parseFloat(Pmin[i].value));
+  }
+  let pmax=[];
+  for (var i = 0; i < Pmax.length; i++) {
+    pmax.push(parseFloat(Pmax[i].value));
+  }
+  lambdaan(paramAArray, paramBArray, paramCArray, pmax, pmin, parseFloat( noOfGens),parseFloat(totalDemand));
+  //algorithm
+  // var lambda = Math.max(...paramBArray);
+  // var delP = -1;
+  // var j = 0;
+  // var P = [];
+
+  // while (delP != 0) {
+  //   var pSum = 0;
+  //   var denominator = 0;
+  //   for (var i = 0; i < noOfGens; i++) {
+  //     P[i] = (lambda - paramBArray[i]) / (2 * paramCArray[i]);
+
+  //     if (P[i] >= Pmax[i]) {
+  //       P[i] = Pmax[i];
+  //     } else if (P[i] <= Pmin[i]) {
+  //       P[i] = Pmin[i];
+  //     } else {
+  //       P[i] = P[i];
+  //     }
+
+  //     denominator += 1 / (2 * paramCArray[i]);
+  //     pSum = pSum + P[i];
+  //   }
+
+  //   delP = totalDemand - pSum;
+  //   var delLambda = delP / denominator;
+  //   lambda = lambda + delLambda;
+  //   j = j + 1;
+
+  //   if (j === 1000) {
+  //     break;
+  //   }
+  // }
+  // console.log("P= " + P.map((x) => Math.round(x)));
+  // console.log("lambda= " + lambda);
+
+  // var c = [];
+
+  // for (var i = 0; i < noOfGens; i++) {
+  //   c[i] =
+  //     paramAArray[i] +
+  //     paramBArray[i] * P[i] +
+  //     paramCArray[i] * Math.pow(P[i], 2);
+  // }
+
+  // console.log(c);
+  // c.map((x) => Math.round(x));
+  // // const cost = c.reduce((a, b) => a + b, 0);
+  // const initialValue = 0.0;
+  // const cost = c.reduce(
+  //   (accumulator, currentValue) => accumulator + parseFloat(currentValue, 10),
+  //   initialValue
+  // );
+  // console.log(cost);
+
 }
 const finalShit = [];
 const res= document.getElementById('output-filein')
@@ -202,11 +272,21 @@ document.getElementById('inputfile').addEventListener('change', function (e) {
             a = first;
             b = second;
             data = metaData;
-
-            console.log(data);
+            let pa=[]; let pb=[]; let pc=[];let pmin=[];let pmax=[];
+            for(let d of data ){
+              pa.push(parseFloat(d[0]));
+              pb.push(parseFloat(d[1]));
+              pc.push(parseFloat(d[2]));
+              pmax.push(parseFloat(d[4]));
+              pmin.push(parseFloat(d[3]));
+            }
+           
+            lambdaan(pa, pb, pc, pmax, pmin, parseInt(a), parseFloat(b))
+            
         };
     
     };
+
     res.textContent='hi';
 });
 
