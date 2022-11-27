@@ -5,6 +5,8 @@ const secondForm = document.getElementById("secondForm");
 const calculate = document.getElementById("calculate");
 const back = document.getElementById("back");
 
+var noOfGens = 0;
+var totalDemand = 0;
 var i = 1;
 
 next.addEventListener("click", function () {
@@ -13,7 +15,9 @@ next.addEventListener("click", function () {
   secondForm.style.display = "block";
 
   var M = document.getElementById("genNumbers").value;
+  noOfGens = M;
   var D = document.getElementById("power").value;
+  totalDemand = D;
 
   while (i <= M) {
     secondForm.innerHTML += `
@@ -69,75 +73,29 @@ calculate.addEventListener("click", function () {
   console.log(result);
   result.innerHTML = `<h3>Economic Dispatch<\h3>`;
 
-  lambdaIteration();
+  lambdan();
 });
 
-function lambdaIteration() {
+function lambdan() {
   var paramA = document.getElementsByClassName("paramA");
   var paramB = document.getElementsByClassName("paramB");
   var paramC = document.getElementsByClassName("paramC");
   var Pmin = document.getElementsByClassName("Pmin");
   var Pmax = document.getElementsByClassName("Pmax");
 
-  let paramAString = "";
+  let paramAArray = [];
   for (var i = 0; i < paramA.length; i++) {
-    paramAString += paramA[i].value + " ";
+    paramAArray.push(paramA[i].value);
   }
 
-  let paramBString = "";
+  let paramBArray = [];
   for (var i = 0; i < paramB.length; i++) {
-    paramBString += paramB[i].value + " ";
+    paramBArray.push(paramB[i].value);
   }
 
-  let paramCString = "";
+  let paramCArray = [];
   for (var i = 0; i < paramC.length; i++) {
-    paramCString += paramC[i].value + " ";
+    paramCArray.push(paramC[i].value);
   }
 
   //algorithm
-  //     function add(accumulator, a) {
-  //         return accumulator + a;
-  //       }
-
-  //       var lambda = Math.max(...paramB);
-  //       var epsilon = -1;
-  //       var iteration = 0;
-  //       var P = [];
-
-  //       while (epsilon != 0) {
-  //         var pp = 0;
-  //         var x = 0;
-  //         for (var i = 0; i < n; i++) {
-  //           P[i] = (lambda - beta[i]) / (2 * gamma[i]);
-
-  //           if (P[i] < Pmin[i]) {
-  //             P[i] = Pmin[i];
-  //           }
-  //           if (P[i] > Pmax[i]) {
-  //             P[i] = Pmax[i];
-  //           } else {
-  //             P[i] = P[i];
-  //           }
-  //           x = x + 1 / (2 * gamma[i]);
-  //           pp = pp + P[i];
-  //         }
-  //         epsilon = PD - pp;
-  //         var dellam = epsilon / x;
-  //         lambda = lambda + dellam;
-  //         iteration = iteration + 1;
-  //         if (iteration === 1000) {
-  //           break;
-  //         }
-  //       }
-  //       console.log("P= " + P.map((x) => Math.round(x)));
-  //       console.log("lambda= " + lambda);
-
-  //       var c = [];
-
-  //       for (var i = 0; i < n; i++) {
-  //         c[i] = alpha[i] + beta[i] * P[i] + gamma[i] * Math.pow(P[i], 2);
-  //       }
-
-  //       const cost = c.reduce(add, 0);
-  //       console.log(Math.round(cost));
-}
