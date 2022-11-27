@@ -17,11 +17,15 @@
   </head>
 
   <body>
-    <div class="navbar">PSECT Project</div>
+    <div class="navbar">Economic Load Dispatch Calculator</div>
     <div class="center_div">
-      <form id="upform"  class="center_div my-5">
-        <div class="filein-head"> Upload .txt file</div>
-        <div class="input-group mb-3">
+      <form id="upform" class="center_div my-5">
+        <div class="filein-head">
+          Upload Input file<span style="font-weight: 300; font-style: italic"
+            >(.txt format)</span
+          >
+        </div>
+        <div class="input-group">
           <div class="input-group-prepend">
             <span class="input-group-text" id="inputGroupFileAddon01"
               >Upload</span
@@ -37,11 +41,12 @@
             <label class="custom-file-label" for="inputfile">Choose file</label>
           </div>
         </div>
-        <button class="btn btn-primary" type="button"  id="ent-man" >
+        <div style="width:100%; text-align:center">Or</div>
+        <button class="btn btn-primary" type="button" id="ent-man">
           Enter manually
         </button>
       </form>
-     
+
       <form id="firstForm" class="center_div my-5" style="display: none">
         <div class="form-group">
           <label for="power">Total Power Demand (D)</label>
@@ -77,13 +82,13 @@
         Next
       </button>
       <button
-      type="submit"
-      style="display: none; margin-top: 10px;"
-      class="btn btn-primary btn_cus"
-      id="back-home"
-    >
-      Back
-    </button>
+        type="submit"
+        style="display: none; margin-top: 10px"
+        class="btn btn-primary btn_cus"
+        id="back-home"
+      >
+        Back
+      </button>
     </div>
 
     <div id="secondForm" class="center_div"></div>
@@ -92,6 +97,9 @@
     <div class="center_div">
       <button class="btn btn-primary" id="calculate" style="display: none">
         Calculate
+      </button>
+      <button class="btn btn-primary" id="stOver" style="display: none">
+        Start Over
       </button>
       <button class="btn btn-primary" id="back" style="display: none">
         Back

@@ -4,9 +4,10 @@ const firstForm = document.getElementById("firstForm");
 const secondForm = document.getElementById("secondForm");
 const calculate = document.getElementById("calculate");
 const back = document.getElementById("back");
-const upform = document.getElementById('upform');
-const entMan= document.getElementById('ent-man')
-const backHome= document.getElementById('back-home')
+const upform = document.getElementById("upform");
+const entMan = document.getElementById("ent-man");
+const backHome = document.getElementById("back-home");
+const result = document.getElementById("result");
 
 var noOfGens = 0;
 var totalDemand = 0;
@@ -16,7 +17,7 @@ next.addEventListener("click", function () {
   firstForm.style.display = "none";
   next.style.display = "none";
   secondForm.style.display = "block";
-  backHome.style.display='none'
+  backHome.style.display = "none";
   var M = document.getElementById("genNumbers").value;
   noOfGens = M;
   var D = document.getElementById("power").value;
@@ -68,20 +69,30 @@ back.addEventListener("click", function () {
   secondForm.style.display = "none";
   calculate.style.display = "none";
   back.style.display = "none";
-  backHome.style.display='block'
+  result.style.display = "none";
+  backHome.style.display = "block";
+  stOver.style.display = "none";
 });
-
+const stOver = document.getElementById("stOver");
 calculate.addEventListener("click", function () {
   secondForm.style.display = "none";
-  const result = document.getElementById("result");
-  console.log(result);
-  result.innerHTML = `<h3>Economic Dispatch<\h3>`;
-
-  lambdan();
+  result.style.display = "block";
+  calculate.style.display = "none";
+  stOver.style.display = "block";
+  lambdaIteration();
 });
-function lambdaan(paramAArray, paramBArray, paramCArray, Pmax,Pmin, noOfgens, totaldemand){
+
+function lambdaan(
+  paramAArray,
+  paramBArray,
+  paramCArray,
+  Pmax,
+  Pmin,
+  noOfgens,
+  totaldemand
+) {
   var lambda = Math.max(...paramBArray);
- // console.log(lambda);
+  // console.log(lambda);
   var delP = -1;
   var j = 0;
   var P = [];
@@ -90,14 +101,14 @@ function lambdaan(paramAArray, paramBArray, paramCArray, Pmax,Pmin, noOfgens, to
   console.log(paramCArray);
   console.log(Pmax);
   console.log(Pmin);
-  console.log(totaldemand)
-  console.log(noOfgens)
+  console.log(totaldemand);
+  console.log(noOfgens);
   while (delP != 0) {
     var pSum = 0;
     var denominator = 0;
     for (var i = 0; i < noOfgens; i++) {
       P[i] = (lambda - paramBArray[i]) / (2 * paramCArray[i]);
-     
+
       if (P[i] >= Pmax[i]) {
         P[i] = Pmax[i];
       } else if (P[i] <= Pmin[i]) {
@@ -140,8 +151,13 @@ function lambdaan(paramAArray, paramBArray, paramCArray, Pmax,Pmin, noOfgens, to
     initialValue
   );
   console.log(cost);
+  return {
+    totalCost: cost,
+    power: P,
+    cost: c,
+  };
 }
-function lambdan() {
+function lambdaIteration() {
   var paramA = document.getElementsByClassName("paramA");
   var paramB = document.getElementsByClassName("paramB");
   var paramC = document.getElementsByClassName("paramC");
@@ -162,15 +178,63 @@ function lambdan() {
   for (var i = 0; i < paramC.length; i++) {
     paramCArray.push(parseFloat(paramC[i].value));
   }
-  let pmin=[];
+  let pmin = [];
   for (var i = 0; i < Pmin.length; i++) {
     pmin.push(parseFloat(Pmin[i].value));
   }
-  let pmax=[];
+  let pmax = [];
   for (var i = 0; i < Pmax.length; i++) {
     pmax.push(parseFloat(Pmax[i].value));
   }
-  lambdaan(paramAArray, paramBArray, paramCArray, pmax, pmin, parseFloat( noOfGens),parseFloat(totalDemand));
+  const resFrom = lambdaan(
+    paramAArray,
+    paramBArray,
+    paramCArray,
+    pmax,
+    pmin,
+    parseFloat(noOfGens),
+    parseFloat(totalDemand)
+  );
+  console.log(resFrom);
+  let resInnerHtml = `
+  <div  style="height: auto; width: 100%;margin: 0;">
+      <div
+        class="center_div my-5 rounded bg-white d-flex flex-column justify-content-around " id='cenRes'
+      >
+        <div class="resHead">
+          <div style="font-weight: bold;margin-right: 25%;">
+            Total Power
+            <div style="text-align: center; font-weight: 400">${parseFloat(totalDemand).toFixed(2) } <span style='font-weight:200'>W</span></div>
+          </div>
+          <div style="font-weight: bold">
+            Total Cost
+            <div style="text-align: center; font-weight: 400">  <span style='font-weight:500'>&#8377; </span> ${parseFloat(resFrom.totalCost).toFixed(2)}</div>
+          </div>
+        </div>
+        <div
+          class="w-100 h-auto resDiv"
+          style="background-color: inherit; margin-bottom: 10px"
+        >
+  `;
+  for (let i in resFrom.cost) {
+    resInnerHtml += `
+    <div class="rounded resIt">
+            <span class="resSpan rounded">P${parseInt(i) + 1} ${
+      resFrom.power[i].toFixed(2)
+    }<span style='font-weight:200'> W</span> </span>
+            <span class="resSpan rounded"><span style='font-weight:500'>&#8377; </span>  ${
+      resFrom.cost[i].toFixed(2)
+    }</span>
+          </div>
+    `;
+  }
+  resInnerHtml += `
+  </div>
+  </div>
+</div>
+</div>
+  `;
+  result.innerHTML = resInnerHtml;
   //algorithm
   // var lambda = Math.max(...paramBArray);
   // var delP = -1;
@@ -225,80 +289,118 @@ function lambdan() {
   //   initialValue
   // );
   // console.log(cost);
-
 }
 const finalShit = [];
-const res= document.getElementById('output-filein')
+
 function csvToArray(str, delimiter = ",") {
+  const someData = [];
 
-    const someData = [];
+  const headers = str.slice(0, str.indexOf("\n")).split(delimiter);
 
-    const headers = str.slice(0, str.indexOf("\n")).split(delimiter);
+  const a = headers[0];
+  const b = headers[1];
 
-    const a = headers[0];
-    const b = headers[1];
+  const rows = str.slice(str.indexOf("\n") + 1).split("\n");
 
-    const rows = str.slice(str.indexOf("\n") + 1).split("\n");
+  const arr = rows.map(function (row) {
+    const values = row.split(delimiter);
 
-    const arr = rows.map(function (row) {
+    someData.push(values);
+  });
 
-        const values = row.split(delimiter);
-
-        someData.push(values);
-
-    });
-
-    return [a, b, someData];
-
+  return [a, b, someData];
 }
 
 let a, b;
 let data;
-document.getElementById('inputfile').addEventListener('change', function (e) {
 
-    let allFiles = e.target.files;
+document.getElementById("inputfile").addEventListener("change", function (e) {
+  result.style.display = "block";
+  upform.style.display = "none";
+  stOver.style.display = "block";
+  let allFiles = e.target.files;
+  let resFrom = {};
+  for (var i = 0; i < allFiles.length; i++) {
+    var reader = new FileReader();
 
-    for (var i = 0; i < allFiles.length; i++) {
+    reader.readAsText(allFiles[0]);
 
-        var reader = new FileReader();
+    reader.onload = function (e) {
+      finalShit.push(e.target.result);
+      const [first, second, metaData] = csvToArray(e.target.result);
 
-        reader.readAsText(allFiles[0]);
+      a = first;
+      b = second;
+      data = metaData;
+      let pa = [];
+      let pb = [];
+      let pc = [];
+      let pmin = [];
+      let pmax = [];
+      for (let d of data) {
+        pa.push(parseFloat(d[0]));
+        pb.push(parseFloat(d[1]));
+        pc.push(parseFloat(d[2]));
+        pmax.push(parseFloat(d[4]));
+        pmin.push(parseFloat(d[3]));
+      }
 
-        reader.onload = function (e) {
+      resFrom = lambdaan(pa, pb, pc, pmax, pmin, parseInt(a), parseFloat(b));
 
-            finalShit.push(e.target.result);
-            const [first, second, metaData] = csvToArray(e.target.result);
-
-            a = first;
-            b = second;
-            data = metaData;
-            let pa=[]; let pb=[]; let pc=[];let pmin=[];let pmax=[];
-            for(let d of data ){
-              pa.push(parseFloat(d[0]));
-              pb.push(parseFloat(d[1]));
-              pc.push(parseFloat(d[2]));
-              pmax.push(parseFloat(d[4]));
-              pmin.push(parseFloat(d[3]));
-            }
-           
-            lambdaan(pa, pb, pc, pmax, pmin, parseInt(a), parseFloat(b))
-            
-        };
-    
+      let resInnerHtml = `
+      <div  style="height: auto; width: 100%;margin: 0;">
+      <div
+        class="center_div my-5 rounded bg-white d-flex flex-column justify-content-around w-80" id='cenRes'
+      >
+        <div class="resHead">
+          <div style="font-weight: bold;margin-right: 25%;">
+            Total Power
+            <div style="text-align: center; font-weight: 400">${parseFloat(b).toFixed(2)} <span style='font-weight:200'>W</span></div>
+          </div>
+          <div style="font-weight: bold">
+            Total Cost
+            <div style="text-align: center; font-weight: 400">  <span style='font-weight:500 '>&#8377; </span>${parseFloat(resFrom.totalCost).toFixed(2)} </div>
+          </div>
+        </div>
+        <div
+          class="w-100 h-auto resDiv"
+          style="background-color: inherit; margin-bottom: 10px"
+        >
+  `;
+      for (let i in resFrom.cost) {
+        resInnerHtml += `
+    <div class="rounded resIt">
+            <span class="resSpan rounded">P${parseInt(i) + 1} ${
+          resFrom.power[i].toFixed(2) 
+        } <span style='font-weight:200'> W</span></span>
+            <span class="resSpan rounded"><span style='font-weight:500'>&#8377; </span>  ${
+          resFrom.cost[i].toFixed(2)
+        }</span>
+          </div>
+    `;
+      }
+      resInnerHtml += `
+  </div>
+  </div>
+</div>
+</div>
+  `;
+      result.innerHTML = resInnerHtml;
     };
-
-    res.textContent='hi';
-});
-
-
-document.getElementById('ent-man').addEventListener('click', function(e){
-  firstForm.style.display='block'
-  next.style.display='block'
-  upform.style.display='none'
-  entMan.style.display='none'
-  backHome.style.display='block'
+  }
 
 });
-document.getElementById('back-home').addEventListener('click', function(e){
-  window.location.reload()
+
+document.getElementById("ent-man").addEventListener("click", function (e) {
+  firstForm.style.display = "block";
+  next.style.display = "block";
+  upform.style.display = "none";
+  entMan.style.display = "none";
+  backHome.style.display = "block";
+});
+document.getElementById("back-home").addEventListener("click", function (e) {
+  window.location.reload();
+});
+document.getElementById("stOver").addEventListener("click", function (e) {
+  window.location.reload();
 });

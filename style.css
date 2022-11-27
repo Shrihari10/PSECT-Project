@@ -1,21 +1,23 @@
-@import url('https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap');
-
+@import url("https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap");
 .center_div {
   margin: 0 auto;
   width: 60%;
 }
 body {
   height: auto;
-  background: #b92b27; /* fallback for old browsers */
+  background: #0f2027; /* fallback for old browsers */
   background: -webkit-linear-gradient(
     to right,
-    #1565c0,
-    #b92b27
+    #2c5364,
+    #203a43,
+    #0f2027
   ); /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(
     to right,
-    #1565c0,
-    #b92b27
+    #2c5364,
+    #203a43,
+    #0f2027
   ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 :root {
@@ -43,7 +45,6 @@ body {
   border-radius: 4px;
 }
 
-
 .input:not(textarea) {
   line-height: 1;
   height: 2.25rem;
@@ -51,7 +52,7 @@ body {
 
 .navbar {
   overflow: hidden;
-  background-color: #293241;
+  background-color: #212529;
   position: fixed;
   top: 0;
   width: 100%;
@@ -71,7 +72,7 @@ form {
   grid-template-columns: 1fr;
   gap: 2rem;
   box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
-  transition: box-shadow 0.7s;
+  transition: box-shadow 0.2s;
 }
 
 form:hover {
@@ -87,11 +88,10 @@ form:hover {
   box-shadow: none !important;
 }
 
-.form-control{
-  border-radius: 0px  !important;
+.form-control {
+  border-radius: 0px !important;
   border-bottom: #6c757d 2px solid !important;
-  transition: all 0.2s ease-in-out !important; 
-
+  transition: all 0.2s ease-in-out !important;
 }
 .form-control:focus {
   border-color: inherit !important;
@@ -101,7 +101,6 @@ form:hover {
   border-radius: 0px;
   margin-top: 5px;
   border-bottom: #1565c0 2px solid !important;
-
 }
 .genHead {
   box-sizing: border-box;
@@ -145,7 +144,18 @@ form:hover {
   align-items: center;
   margin-top: 20px;
 }
-
+#result{
+  width: 100vw;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+#cenRes{
+  width: 50%;
+  padding-bottom: 20px;
+}
 .footer {
   position: relative;
   left: 0;
@@ -158,14 +168,17 @@ form:hover {
 }
 
 #next:hover,
-#back:hover, 
-#calculate:hover, 
-#ent-man:hover, 
-#back-home:hover {
+#back:hover,
+#calculate:hover,
+#ent-man:hover,
+#back-home:hover,
+#stOver:hover {
   color: white;
-  background-color: #293241;
+  background-color: #0f2027;
 }
-#next, #back, #back-home {
+#next,
+#back,
+#back-home {
   width: 20%;
   height: auto;
   appearance: none;
@@ -185,7 +198,8 @@ form:hover {
   text-align: center;
   transition: all 0.2s;
 }
-#calculate {
+#calculate,
+#stOver {
   width: 20%;
   height: auto;
   appearance: none;
@@ -205,39 +219,38 @@ form:hover {
   text-align: center;
   transition: all 0.2s;
   margin-bottom: 20px;
-margin-top:30px ;
+  margin-top: 30px;
 }
-.form-control::placeholder{
+.form-control::placeholder {
   font-size: 0.8em !important;
+  text-align: center;
 }
-.filein-head{
+.filein-head {
   padding: 5px;
-  color:black;
-  border-left: black 7px solid;
-  margin-left: 40%;
-font-family: 'Bree Serif', serif;
+  color: black;
 
+  margin-left: 25%;
+  font-family: "Montserrat", sans-serif;
 }
-#output-filein{
+#output-filein {
   display: flex;
   flex-direction: row;
-   justify-content: space-around;
+  justify-content: space-around;
   text-align: center;
-  padding: 10px 0px ;
-  margin: 0 30px ;
+  padding: 10px 0px;
+  margin: 0 30px;
   color: #293241;
   box-shadow: #1565c0 6px 2px 16px 0px, #b92b27 -6px -2px 16px 0px;
 }
-#ent-man{
-  width: 50%;
+#ent-man {
+  width: auto;
   height: auto;
-  appearance: none;
-  -webkit-appearance: none;
+  appearance: none !important;
+  -webkit-appearance: none !important;
   display: flex;
   justify-self: center;
-  padding: 10px;
+  padding: 7px 20px !important;
   border: 0.1em solid #8b8a8b;
- text-align: center;
   border-radius: 0.12em;
   box-sizing: border-box;
   text-decoration: none;
@@ -248,16 +261,50 @@ font-family: 'Bree Serif', serif;
   text-align: center;
   transition: all 0.2s;
 }
+.resHead {
+  height: 100px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.resDiv {
+  height: auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+}
+.resIt {
+  height: auto;
+  width: 100%;
+  background-color: inherit;
+  margin-bottom: 10px;
+  padding: 5px;
+  display: flex;
+  flex-direction: row;
+  background-color: #0f2027;
+  color: white;
+  justify-content: space-around;
+  width: 70%  ;
+}
+.resSpan {
+  
+ 
+  text-align: center;
+}
 @media (max-width: 1185px) {
   /* … */
-.genForm{
-  flex-direction: column;
-  height: auto;
-}
-.genMain{
-  height: auto;
-}
-.genIn{
-  width: 50%;
-}
+  .genForm {
+    flex-direction: column;
+    height: auto;
+  }
+  .genMain {
+    height: auto;
+  }
+  .genIn {
+    width: 50%;
+  }
 }
