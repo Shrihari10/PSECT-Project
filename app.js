@@ -204,7 +204,7 @@ function lambdaIteration() {
         <div class="resHead">
           <div style="font-weight: bold;margin-right: 25%;">
             Total Power
-            <div style="text-align: center; font-weight: 400">${parseFloat(totalDemand).toFixed(2) } <span style='font-weight:200'>W</span></div>
+            <div style="text-align: center; font-weight: 400">${parseFloat(totalDemand).toFixed(2) } <span style='font-weight:200'>MW</span></div>
           </div>
           <div style="font-weight: bold">
             Total Cost
@@ -221,7 +221,7 @@ function lambdaIteration() {
     <div class="rounded resIt">
             <span class="resSpan rounded">P${parseInt(i) + 1} ${
       resFrom.power[i].toFixed(2)
-    }<span style='font-weight:200'> W</span> </span>
+    }<span style='font-weight:200'> MW</span> </span>
             <span class="resSpan rounded"><span style='font-weight:500'>&#8377; </span>  ${
       resFrom.cost[i].toFixed(2)
     }</span>
