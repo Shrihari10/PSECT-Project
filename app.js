@@ -82,7 +82,7 @@ calculate.addEventListener("click", function () {
   lambdaIteration();
 });
 
-function lambdaan(
+function lambdaIterationAlgo(
   paramAArray,
   paramBArray,
   paramCArray,
@@ -186,7 +186,7 @@ function lambdaIteration() {
   for (var i = 0; i < Pmax.length; i++) {
     pmax.push(parseFloat(Pmax[i].value));
   }
-  const resFrom = lambdaan(
+  const resFrom = lambdaIterationAlgo(
     paramAArray,
     paramBArray,
     paramCArray,
@@ -235,62 +235,7 @@ function lambdaIteration() {
 </div>
   `;
   result.innerHTML = resInnerHtml;
-  //algorithm
-  // var lambda = Math.max(...paramBArray);
-  // var delP = -1;
-  // var j = 0;
-  // var P = [];
-
-  // while (delP != 0) {
-  //   var pSum = 0;
-  //   var denominator = 0;
-  //   for (var i = 0; i < noOfGens; i++) {
-  //     P[i] = (lambda - paramBArray[i]) / (2 * paramCArray[i]);
-
-  //     if (P[i] >= Pmax[i]) {
-  //       P[i] = Pmax[i];
-  //     } else if (P[i] <= Pmin[i]) {
-  //       P[i] = Pmin[i];
-  //     } else {
-  //       P[i] = P[i];
-  //     }
-
-  //     denominator += 1 / (2 * paramCArray[i]);
-  //     pSum = pSum + P[i];
-  //   }
-
-  //   delP = totalDemand - pSum;
-  //   var delLambda = delP / denominator;
-  //   lambda = lambda + delLambda;
-  //   j = j + 1;
-
-  //   if (j === 1000) {
-  //     break;
-  //   }
-  // }
-  // console.log("P= " + P.map((x) => Math.round(x)));
-  // console.log("lambda= " + lambda);
-
-  // var c = [];
-
-  // for (var i = 0; i < noOfGens; i++) {
-  //   c[i] =
-  //     paramAArray[i] +
-  //     paramBArray[i] * P[i] +
-  //     paramCArray[i] * Math.pow(P[i], 2);
-  // }
-
-  // console.log(c);
-  // c.map((x) => Math.round(x));
-  // // const cost = c.reduce((a, b) => a + b, 0);
-  // const initialValue = 0.0;
-  // const cost = c.reduce(
-  //   (accumulator, currentValue) => accumulator + parseFloat(currentValue, 10),
-  //   initialValue
-  // );
-  // console.log(cost);
 }
-const finalShit = [];
 
 function csvToArray(str, delimiter = ",") {
   const someData = [];
@@ -326,7 +271,6 @@ document.getElementById("inputfile").addEventListener("change", function (e) {
     reader.readAsText(allFiles[0]);
 
     reader.onload = function (e) {
-      finalShit.push(e.target.result);
       const [first, second, metaData] = csvToArray(e.target.result);
 
       a = first;
@@ -345,7 +289,7 @@ document.getElementById("inputfile").addEventListener("change", function (e) {
         pmin.push(parseFloat(d[3]));
       }
 
-      resFrom = lambdaan(pa, pb, pc, pmax, pmin, parseInt(a), parseFloat(b));
+      resFrom = lambdaIterationAlgo(pa, pb, pc, pmax, pmin, parseInt(a), parseFloat(b));
 
       let resInnerHtml = `
       <div  style="height: auto; width: 100%;margin: 0;">
